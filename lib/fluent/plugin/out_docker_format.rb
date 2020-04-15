@@ -14,7 +14,7 @@ module Fluent
 
     def emit(tag, es, chain)
       es.each do |time,record|
-        Engine.emit(interpolate_tag(tag), time, format_record(tag, record))
+        router.emit(interpolate_tag(tag), time, format_record(tag, record))
       end
 
       chain.next
