@@ -101,7 +101,7 @@ module Fluent
       record['container_id'] = id
       record['container_name'] = get_container_name(id) || "<unknown>"
       record['image_name'] = get_image_name(id) || "<unknown>"
-      #record['service_id'] = get_env_variable("SERVICE_ID") || "<unknown>"
+      record['service_id'] = get_env_variable("SERVICE_ID") || "<unknown>"
       record
     end
 
