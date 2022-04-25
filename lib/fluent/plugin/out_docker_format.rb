@@ -86,6 +86,8 @@ module Fluent
           envString = env.split("=")
           if envString.length == 2 && envString[0] == variable 
             service_id = envString[1]
+            puts "Found service_id: #{service_id}"
+            break
           end
         }
       end
