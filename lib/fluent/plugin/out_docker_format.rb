@@ -85,10 +85,8 @@ module Fluent
         envs.each{
           |env|
           envString = env.split("=")
-          #puts "comparing #{envString[0]} with #{variable}"
           if envString.length == 2 && envString[0] == variable 
             service_id = envString[1]
-            puts "Found service_id: #{service_id}"
             break
           end
         }
@@ -101,7 +99,10 @@ module Fluent
       record['container_id'] = id
       record['container_name'] = get_container_name(id) || "<unknown>"
       record['image_name'] = get_image_name(id) || "<unknown>"
-      record['service_id'] = get_env_variable(id, "SERVICE_ID")
+      service_id = get_env_variable(id, "SERVICE_ID")
+      if service_id != nil
+        record['service_id'] = get_env_variable(id, "SERVICE_ID")
+      end
       record
     end
 
