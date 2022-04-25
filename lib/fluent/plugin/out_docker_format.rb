@@ -81,8 +81,7 @@ module Fluent
       if @id_to_docker_cfg[id] == nil 
         service_id = nil
       else 
-        envs := @id_to_docker_cfg[id]['Config']['Env']
-        envs.each{
+        @id_to_docker_cfg[id]['Config']['Env'].each{
           |env|
           envString = env.split("=")
           if envString.length == 2 && envString[0] == variable 
