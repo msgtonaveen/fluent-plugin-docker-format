@@ -85,8 +85,8 @@ module Fluent
         envs = @id_to_docker_cfg[id]['Config']['Env']
         envs.each{
           |env|
-          puts "comparing #{env} with #{variable}"
           envString = env.split("=")
+          #puts "comparing #{envString[0]} with #{variable}"
           if envString.length == 2 && envString[0] == variable 
             service_id = envString[1]
             puts "Found service_id: #{service_id}"
