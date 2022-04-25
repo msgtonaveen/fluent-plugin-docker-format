@@ -75,15 +75,21 @@ module Fluent
       image_name
     end
 
-    def get_service_id(id)
-      puts "going to get service id for #{id}"
+    def get_env_variable(id, variable)
+      service_id = nil
       @id_to_docker_cfg[id] = get_docker_cfg_from_id(id) unless @id_to_docker_cfg.has_key? id
       if @id_to_docker_cfg[id] == nil 
         service_id = nil
       else 
-        service_id = @id_to_docker_cfg[id]['Config']['Env'][0].dup
+        envs := @id_to_docker_cfg[id]['Config']['Env']
+        envs.each{
+          |env|
+          envString = env.split("=")
+          if envString.length == 2 && envString[0] == variable {
+            service_id = envString[1]
+          }
+        }
       end
-      puts "service_id: #{service_id}"
       service_id
     end
 
@@ -92,7 +98,7 @@ module Fluent
       record['container_id'] = id
       record['container_name'] = get_container_name(id) || "<unknown>"
       record['image_name'] = get_image_name(id) || "<unknown>"
-      record['service_id'] = get_service_id(id) || "<unknown>"
+      record['service_id'] = get_env_variable("SERVICE_ID") || "<unknown>"
       record
     end
 
