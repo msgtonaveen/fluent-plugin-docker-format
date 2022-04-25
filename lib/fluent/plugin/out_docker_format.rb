@@ -76,11 +76,12 @@ module Fluent
     end
 
     def get_service_id(id)
+      puts "going to get service id for #{id}"
       @id_to_docker_cfg[id] = get_docker_cfg_from_id(id) unless @id_to_docker_cfg.has_key? id
       if @id_to_docker_cfg[id] == nil 
         service_id = nil
       else 
-        service_id = @id_to_docker_cfg[id]['Config']['Env']['MY_POD_NAME'].dup
+        service_id = @id_to_docker_cfg[id]['Config']['Env'][0].dup
       end
       puts "service_id: #{service_id}"
       service_id
