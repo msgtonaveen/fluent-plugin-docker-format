@@ -82,7 +82,8 @@ module Fluent
       if @id_to_docker_cfg[id] == nil 
         service_id = nil
       else 
-        @id_to_docker_cfg[id]['Config']['Env'].each{
+        envs = @id_to_docker_cfg[id]['Config']['Env']
+        envs.each{
           |env|
           puts "comparing #{env} with #{variable}"
           envString = env.split("=")
@@ -101,7 +102,7 @@ module Fluent
       record['container_id'] = id
       record['container_name'] = get_container_name(id) || "<unknown>"
       record['image_name'] = get_image_name(id) || "<unknown>"
-      record['service_id'] = get_env_variable("SERVICE_ID") || "<unknown>"
+      record['service_id'] = get_env_variable(id, "SERVICE_ID") || "<unknown>"
       record
     end
 
