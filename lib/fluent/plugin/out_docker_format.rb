@@ -85,9 +85,9 @@ module Fluent
         envs.each{
           |env|
           envString = env.split("=")
-          if envString.length == 2 && envString[0] == variable {
+          if envString.length == 2 && envString[0] == variable 
             service_id = envString[1]
-          }
+          end
         }
       end
       service_id
