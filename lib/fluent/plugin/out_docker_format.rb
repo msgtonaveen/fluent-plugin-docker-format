@@ -76,7 +76,6 @@ module Fluent
     end
 
     def get_env_variable(id, variable)
-      puts "going to get service id in plugin"
       service_id = nil
       @id_to_docker_cfg[id] = get_docker_cfg_from_id(id) unless @id_to_docker_cfg.has_key? id
       if @id_to_docker_cfg[id] == nil 
