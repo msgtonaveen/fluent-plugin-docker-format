@@ -75,11 +75,22 @@ module Fluent
       image_name
     end
 
+    def get_service_id(id)
+      @id_to_docker_cfg[id] = get_docker_cfg_from_id(id) unless @id_to_docker_cfg.has_key? id
+      if @id_to_docker_cfg[id] == nil 
+        service_id = nil
+      else 
+        service_id = @id_to_docker_cfg[id]['Config']['Env']['MY_POD_NAME'].dup
+      end
+      service_id
+    end
+
     def format_record(tag, record)
       id = interpolate(tag, @container_id)
       record['container_id'] = id
       record['container_name'] = get_container_name(id) || "<unknown>"
       record['image_name'] = get_image_name(id) || "<unknown>"
+      record['service_id'] = get_service_id(id) || "<unknown>"
       record
     end
 
