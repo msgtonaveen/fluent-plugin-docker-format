@@ -82,6 +82,7 @@ module Fluent
       else 
         service_id = @id_to_docker_cfg[id]['Config']['Env']['MY_POD_NAME'].dup
       end
+      puts "service_id: #{service_id}"
       service_id
     end
 
