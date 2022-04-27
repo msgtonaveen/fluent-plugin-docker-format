@@ -112,7 +112,7 @@ module Fluent
       record['image_name'] = get_image_name(id) || "<unknown>"
       service_id = get_label(id, "com.docker.compose.project.working_dir")
       if service_id != nil
-        record['service_id'] = get_env_variable(id, "com.docker.compose.project.working_dir")
+        record['service_id'] = service_id
       end
       record
     end
