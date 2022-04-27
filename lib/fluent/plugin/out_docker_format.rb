@@ -101,8 +101,9 @@ module Fluent
         label_value = nil
       else 
         label_value = @id_to_docker_cfg[id]["Labels"][key]
+      end
       label_value
-    end
+     end
 
     def format_record(tag, record)
       id = interpolate(tag, @container_id)
