@@ -76,22 +76,22 @@ module Fluent
     end
 
     def get_env_variable(id, variable)
-      service_id = nil
+      env_value = nil
       @id_to_docker_cfg[id] = get_docker_cfg_from_id(id) unless @id_to_docker_cfg.has_key? id
       if @id_to_docker_cfg[id] == nil 
-        service_id = nil
+        env_value = nil
       else 
         envs = @id_to_docker_cfg[id]['Config']['Env']
         envs.each{
           |env|
           envString = env.split("=")
           if envString.length == 2 && envString[0] == variable 
-            service_id = envString[1]
+            env_value = envString[1]
             break
           end
         }
       end
-      service_id
+      env_value
     end
 
     def format_record(tag, record)
