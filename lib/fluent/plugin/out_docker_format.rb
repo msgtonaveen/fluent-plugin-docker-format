@@ -100,7 +100,7 @@ module Fluent
       if @id_to_docker_cfg[id] == nil 
         label_value = nil
       else 
-        label_value = @id_to_docker_cfg[id]["Labels"][key]
+        label_value = @id_to_docker_cfg[id]['Config']["Labels"][key]
       end
       label_value
     end
