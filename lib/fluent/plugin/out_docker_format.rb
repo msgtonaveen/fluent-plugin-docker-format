@@ -110,7 +110,7 @@ module Fluent
       record['container_id'] = id
       record['container_name'] = get_container_name(id) || "<unknown>"
       record['image_name'] = get_image_name(id) || "<unknown>"
-      service_id = get_label(id, "com.docker.compose.project.working_dir")
+      service_id = get_label(id, "com.docker.compose.project.working_dir") #change this to service id label once it's finalized
       if service_id != nil
         record['service_id'] = service_id
       end
