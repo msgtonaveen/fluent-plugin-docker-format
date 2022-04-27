@@ -94,14 +94,24 @@ module Fluent
       env_value
     end
 
+    def get_label(id, key) 
+      label_value = nil
+      @id_to_docker_cfg[id] = get_docker_cfg_from_id(id) unless @id_to_docker_cfg.has_key? id
+      if @id_to_docker_cfg[id] == nil 
+        label_value = nil
+      else 
+        label_value = @id_to_docker_cfg[id]["Labels"][key]
+      label_value
+    end
+
     def format_record(tag, record)
       id = interpolate(tag, @container_id)
       record['container_id'] = id
       record['container_name'] = get_container_name(id) || "<unknown>"
       record['image_name'] = get_image_name(id) || "<unknown>"
-      service_id = get_env_variable(id, "SERVICE_ID")
+      service_id = get_label(id, "com.docker.compose.project.working_dir")
       if service_id != nil
-        record['service_id'] = get_env_variable(id, "SERVICE_ID")
+        record['service_id'] = get_env_variable(id, "com.docker.compose.project.working_dir")
       end
       record
     end
